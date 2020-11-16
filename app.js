@@ -208,3 +208,10 @@ function check(){
         alert('Error on login');
     }
 }
+
+// log off
+
+// clear()
+// This method, when invoked, clears the entire storage of all records for that domain. It does not receive any parameters.
+
+// window.localStorage.clear();
