@@ -90,7 +90,7 @@ function lowerCasePlates(){
    }
   }
  }
- console.log(plates);
+ // console.log(plates);
 }
 lowerCasePlates();
 
@@ -99,8 +99,7 @@ const meals = document.querySelector(".meals");
 function displayMenu(item) {
   let div = document.createElement("div");
   div.setAttribute("class", "dish-box");
-  div.innerHTML = `
-                <img class="dish-image" src="${item.img}" alt="${item.name}"/>
+  div.innerHTML = `<img class="dish-image" src="${item.img}" alt="${item.name}"/>
                 <div class="dish-info">
                   <div>
                     <div class="dish-details">
@@ -119,8 +118,7 @@ function displayMenu(item) {
                     </div>
                     <h4 class="dish-name">${item.name}</h4>
                   </div>
-                </div>
-     `;
+                </div>`;
   meals.appendChild(div);
 }
 function getDishes() {
@@ -132,3 +130,106 @@ function getDishes() {
 window.onload = function () {
   this.getDishes();
 };
+
+
+
+// modal close and open
+function startModal(choosenModal) {
+  var modal = document.getElementById(choosenModal);
+  if(modal) {
+
+    modal.classList.add('open-modal');
+    modal.addEventListener('click', (x) => {
+      if(x.target.id == choosenModal || x.target.className == 'close-button') {
+        modal.classList.remove('open-modal');
+      }
+    });
+  }
+}
+
+var buttonLogin = document.querySelector('.login-user');
+buttonLogin.addEventListener('click', () => startModal('login-container'));
+
+var buttonRegister = document.querySelector('.register-user');
+buttonRegister.addEventListener('click', () => startModal('register-container'));
+
+var linkRegister = document.querySelector('.register-thru-login');
+linkRegister.addEventListener('click', () => startModal('register-container'));
+
+
+
+function storeUsers(){
+    var name = document.getElementById('name');
+    var password = document.getElementById('password');
+    var lowerCaseLetters = /[a-z]/g;
+    var upperCaseLetters = /[A-Z]/g;
+    var numbers = /[0-9]/g;
+
+    if(name.value.length == 0){
+        alert('Please fill in email');
+
+    }else if(password.value.length == 0){
+        alert('Please fill in password');
+
+    }else if(name.value.length == 0 && password.value.length == 0){
+        alert('Please fill in email and password');
+
+    }else if(password.value.length > 8){
+        alert('Max of 8');
+
+    }else if(!password.value.match(numbers)){
+        alert('please add 1 number');
+
+    }else if(!password.value.match(upperCaseLetters)){
+        alert('please add 1 uppercase letter');
+
+    }else if(!password.value.match(lowerCaseLetters)){
+        alert('please add 1 lovercase letter');
+
+    }else{
+        localStorage.setItem('name', name.value);
+        localStorage.setItem('password', password.value);
+        alert('Your account has been created');
+    }
+}
+
+//checking
+function check(){
+    var storedName = localStorage.getItem('name');
+    var storedPassword = localStorage.getItem('password');
+
+    var userName = document.getElementById('userName');
+    var userPassword = document.getElementById('userPassword');
+    var userRemember = document.getElementById("rememberMe");
+
+    if(userName.value == storedName && userPassword.value == storedPassword){
+        alert('You are logged in.');
+    }else{
+        alert('Error on login.');
+    }
+}
+// //function to store user name and password
+//    function store(theForm) {
+//     document.getElementById('welcomeMessage').innerHTML = "";
+//     var inputUsername= theForm["username"];
+//     var inputPassword= theForm["password"];
+//     localStorage.setItem("username", inputUsername.value);
+//     localStorage.setItem("password", inputPassword.value);
+//     document.getElementById('welcomeMessage').innerHTML = "Welcome " + localStorage.getItem('username') + "!";
+//     return false;
+//    } // end store()
+// //function to sign in
+//    function login(theForm) {
+//     document.getElementById('welcomeMessage').innerHTML = "";
+//     var inputUsername = theForm["username"];
+//     var inputPassword = theForm["password"];
+//     var username = inputUsername.value;
+//     var password = inputPassword.value;
+//     if ((username == localStorage.getItem('username')) && (password == localStorage.getItem('password'))) {
+//      document.getElementById('welcomeMessage').innerHTML = "Welcome " + localStorage.getItem('username') + "!";
+//       } else {
+//      document.getElementById('welcomeMessage').innerHTML = "Invalid Log-in!";
+//     }
+//     return false;
+//    } // end login()
+
