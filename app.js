@@ -137,7 +137,6 @@ window.onload = function () {
 function startModal(choosenModal) {
   var modal = document.getElementById(choosenModal);
   if(modal) {
-
     modal.classList.add('open-modal');
     modal.addEventListener('click', (x) => {
       if(x.target.id == choosenModal || x.target.className == 'close-button') {
