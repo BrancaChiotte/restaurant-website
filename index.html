@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="main.css" />
     <title>White & Yellow Restaurant Website</title>
-    <script
-      src="https://kit.fontawesome.com/b66dc199af.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://kit.fontawesome.com/b66dc199af.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <header>
@@ -21,7 +18,9 @@
           <li><a href="#about">About</a></li>
           <li><a href="#menu">Menu</a></li>
           <li><a class="login-user" href="#login">Login</a></li>
-          <li><a class="register-user" href="#register">Register</a></li>
+          <li><a class="register-user" href="#register">Sign Up</a></li>
+          <li><a class="schedule" href="#logout">Schedule</a></li>
+          <li><a class="logout-user" href="#logout">Logout</a></li>
         </ul>
       </nav>
     </header>
@@ -69,6 +68,19 @@
             </ul>
             <input id="rgstr_btn" type="submit" value="Register" onclick="store()" />
           </form>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="logout-container" class="modal-container">
+      <div class="modal">
+        <button class="close-button">x</button>
+        <h2 class="modal-title">Logging out</h2>
+        <div class="logout">
+          <p>Are your sure you want to logout?</p>
+            <button id="yes-button" onclick="logout()">Yes</button>
+            <button id="no-button" onclick="continueLogin()">No</button>
         </div>
       </div>
     </div>

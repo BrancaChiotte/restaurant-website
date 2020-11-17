@@ -66,7 +66,7 @@ var plates = [
   {
     Name: "Chicken",
     Day: "Friday",
-    Type: "Fish",
+    Type: "Meat",
     Price: 6,
     img:
       "https://cdn.pixabay.com/photo/2016/11/18/17/42/barbecue-1836053_960_720.jpg",
@@ -74,7 +74,7 @@ var plates = [
   {
     Name: "Fish Soup",
     Day: "Friday",
-    Type: "Meat",
+    Type: "Fish",
     Price: 7,
     img:
       "https://cdn.pixabay.com/photo/2018/01/01/17/57/fish-soup-3054627_960_720.jpg",
@@ -94,10 +94,10 @@ function lowerCasePlates(){
 }
 lowerCasePlates();
 
-const meals = document.querySelector(".meals");
+var meals = document.querySelector(".meals");
 
 function displayMenu(item) {
-  let div = document.createElement("div");
+  var div = document.createElement("div");
   div.setAttribute("class", "dish-box");
   div.innerHTML = `<img class="dish-image" src="${item.img}" alt="${item.name}"/>
                 <div class="dish-info">
@@ -121,6 +121,7 @@ function displayMenu(item) {
                 </div>`;
   meals.appendChild(div);
 }
+
 function getDishes() {
   plates.forEach((item) => {
     displayMenu(item);
@@ -155,6 +156,8 @@ buttonRegister.addEventListener('click', () => startModal('register-container'))
 var linkRegister = document.querySelector('.register-thru-login');
 linkRegister.addEventListener('click', () => startModal('register-container'));
 
+var buttonLogout = document.querySelector('.logout-user');
+buttonLogout.addEventListener('click', () => startModal('logout-container'));
 
 // save user and password
 function store(){
@@ -193,6 +196,8 @@ function store(){
 }
 
 //checking
+var isLogin = false
+
 function check(){
     var storedEmail = localStorage.getItem('email');
     var storedPassword = localStorage.getItem('password');
@@ -203,14 +208,34 @@ function check(){
 
     if(userEmail.value == storedEmail && userPassword.value == storedPassword ){
         alert('You are logged in.');
+        isLogin = true;
+        showNewBtn();
     } else{
         alert('Error on login');
     }
 }
 
-// log off
+// show btn of Schedule and Logout
+function showNewBtn() {
+  var loginBtn = document.querySelector(".login-user");
+  var registerBtn = document.querySelector(".register-user");
+  var scheduleBtn = document.querySelector(".schedule");
+  var logoutBtn = document.querySelector(".logout-user");
 
-// clear()
-// This method, when invoked, clears the entire storage of all records for that domain. It does not receive any parameters.
+  loginBtn.parentNode.removeChild(loginBtn);
+  registerBtn.parentNode.removeChild(registerBtn);
 
-// window.localStorage.clear();
+  scheduleBtn.style.display = "inline-block";
+  logoutBtn.style.display = "inline-block";
+}
+
+function logout (argument) {
+  window.localStorage.clear();
+  window.location.reload();
+}
+
+function continueLogin (argument) {
+  isLogin = true;
+  var modalLogout = document.getElementById('logout-container');
+  modalLogout.classList.remove('open-modal');
+}
