@@ -81,16 +81,16 @@ var plates = [
   },
 ];
 
-function lowerCasePlates(){
- for(var i = 0; i < plates.length; i++){
-  for (var key in plates[i]) {
-   if(key.toLowerCase() !== key){
-    plates[i][key.toLowerCase()] = plates[i][key];
-    delete plates[i][key];
-   }
+function lowerCasePlates() {
+  for (var i = 0; i < plates.length; i++) {
+    for (var key in plates[i]) {
+      if (key.toLowerCase() !== key) {
+        plates[i][key.toLowerCase()] = plates[i][key];
+        delete plates[i][key];
+      }
+    }
   }
- }
- // console.log(plates);
+  // console.log(plates);
 }
 lowerCasePlates();
 
@@ -132,110 +132,185 @@ window.onload = function () {
   this.getDishes();
 };
 
-
-
 // modal close and open
 function startModal(choosenModal) {
   var modal = document.getElementById(choosenModal);
-  if(modal) {
-    modal.classList.add('open-modal');
-    modal.addEventListener('click', (x) => {
-      if(x.target.id == choosenModal || x.target.className == 'close-button') {
-        modal.classList.remove('open-modal');
+  if (modal) {
+    modal.classList.add("open-modal");
+    modal.addEventListener("click", (x) => {
+      if (x.target.id == choosenModal || x.target.className == "close-button") {
+        modal.classList.remove("open-modal");
       }
     });
   }
 }
 
-var buttonLogin = document.querySelector('.login-user');
-buttonLogin.addEventListener('click', () => startModal('login-container'));
+var buttonLogin = document.querySelector(".login-user");
+buttonLogin.addEventListener("click", () => startModal("login-container"));
 
-var buttonRegister = document.querySelector('.register-user');
-buttonRegister.addEventListener('click', () => startModal('register-container'));
+var buttonRegister = document.querySelector(".register-user");
+buttonRegister.addEventListener("click", () =>
+  startModal("register-container")
+);
 
-var linkRegister = document.querySelector('.register-thru-login');
-linkRegister.addEventListener('click', () => startModal('register-container'));
+var linkRegister = document.querySelector(".register-thru-login");
+linkRegister.addEventListener("click", () => startModal("register-container"));
 
-var buttonLogout = document.querySelector('.logout-user');
-buttonLogout.addEventListener('click', () => startModal('logout-container'));
+var buttonLogout = document.querySelector(".logout-user");
+buttonLogout.addEventListener("click", () => startModal("logout-container"));
 
 // save user and password
-function store(){
-    var email = document.getElementById('email');
-    var password = document.getElementById('password');
-    var lowerCaseLetters = /[a-z]/g;
-    var upperCaseLetters = /[A-Z]/g;
-    var numbers = /[0-9]/g;
+function store() {
+  var email = document.getElementById("email");
+  var password = document.getElementById("password");
+  var lowerCaseLetters = /[a-z]/g;
+  var upperCaseLetters = /[A-Z]/g;
+  var numbers = /[0-9]/g;
 
-    if(email.value.length == 0){
-        alert('Please fill in email');
-
-    }else if(password.value.length == 0){
-        alert('Please fill in password');
-
-    }else if(email.value.length == 0 && password.value.length == 0){
-        alert('Please fill in email and password');
-
-    }else if(password.value.length < 5){
-        alert('Password need to have more than 5 characters');
-
-    }else if(!password.value.match(numbers)){
-        alert('please add 1 number');
-
-    }else if(!password.value.match(upperCaseLetters)){
-        alert('please add 1 uppercase letter');
-
-    }else if(!password.value.match(lowerCaseLetters)){
-        alert('please add 1 lovercase letter');
-
-    }else{
-        localStorage.setItem('email', email.value);
-        localStorage.setItem('password', password.value);
-        alert('Your account has been created');
-    }
+  if (email.value.length == 0) {
+    alert("Please fill in email");
+  } else if (password.value.length == 0) {
+    alert("Please fill in password");
+  } else if (email.value.length == 0 && password.value.length == 0) {
+    alert("Please fill in email and password");
+  } else if (password.value.length < 5) {
+    alert("Password need to have more than 5 characters");
+  } else if (!password.value.match(numbers)) {
+    alert("please add 1 number");
+  } else if (!password.value.match(upperCaseLetters)) {
+    alert("please add 1 uppercase letter");
+  } else if (!password.value.match(lowerCaseLetters)) {
+    alert("please add 1 lovercase letter");
+  } else {
+    localStorage.setItem("email", email.value);
+    localStorage.setItem("password", password.value);
+    alert("Your account has been created");
+  }
 }
 
 //checking
-var isLogin = false
+var isLogin = false;
 
-function check(){
-    var storedEmail = localStorage.getItem('email');
-    var storedPassword = localStorage.getItem('password');
+function check() {
+  var storedEmail = localStorage.getItem("email");
+  var storedPassword = localStorage.getItem("password");
 
-    var userEmail = document.getElementById('userEmail');
-    var userPassword = document.getElementById('userPassword');
-    var userRemember = document.getElementById("rememberMe");
+  var userEmail = document.getElementById("userEmail");
+  var userPassword = document.getElementById("userPassword");
+  var userRemember = document.getElementById("rememberMe");
 
-    if(userEmail.value == storedEmail && userPassword.value == storedPassword ){
-        alert('You are logged in.');
-        isLogin = true;
-        showNewBtn();
-    } else{
-        alert('Error on login');
-    }
+  if (userEmail.value == storedEmail && userPassword.value == storedPassword) {
+    alert("You are logged in.");
+    isLogin = true;
+    showInsideLogin();
+  } else {
+    alert("Error on login");
+  }
 }
 
-// show btn of Schedule and Logout
-function showNewBtn() {
+// show btn schedule and btn logout
+function showInsideLogin() {
   var loginBtn = document.querySelector(".login-user");
   var registerBtn = document.querySelector(".register-user");
   var scheduleBtn = document.querySelector(".schedule");
   var logoutBtn = document.querySelector(".logout-user");
+  var scheduleSection = document.querySelector(".schedule-section");
 
   loginBtn.parentNode.removeChild(loginBtn);
   registerBtn.parentNode.removeChild(registerBtn);
 
   scheduleBtn.style.display = "inline-block";
   logoutBtn.style.display = "inline-block";
+  scheduleSection.style.display = "block";
 }
 
-function logout (argument) {
+function logout(argument) {
   window.localStorage.clear();
   window.location.reload();
 }
 
-function continueLogin (argument) {
+function continueLogin(argument) {
   isLogin = true;
-  var modalLogout = document.getElementById('logout-container');
-  modalLogout.classList.remove('open-modal');
+  var modalLogout = document.getElementById("logout-container");
+  modalLogout.classList.remove("open-modal");
+}
+
+// schedule items
+
+function addMore() {
+  var addMorePlates = document.querySelector(".schedule-section");
+  var btns = document.querySelector(".choose-action");
+
+  var div = document.createElement("div");
+  div.setAttribute("class", "choose-items");
+  div.innerHTML = `<div class="wrapper-days">
+                  <label class="question">Day:</label>
+                  <div class="content-days">
+                    <div class="checkbox-content">
+                      <input type="checkbox" name="monday">
+                      <label>Monday</label>
+                    </div>
+                  </div>
+                  <div class="content-days">
+                    <div class="checkbox-content">
+                      <input type="checkbox" name="tuesday">
+                      <label>Tuesday</label>
+                    </div>
+                  </div>
+                  <div class="content-days">
+                    <div class="checkbox-content">
+                      <input type="checkbox" name="wednesday">
+                      <label>Wednesday</label>
+                    </div>
+                  </div>
+                  <div class="content-days">
+                    <div class="checkbox-content">
+                      <input type="checkbox" name="thursday">
+                      <label>Thursday</label>
+                    </div>
+                  </div>
+                  <div class="content-days">
+                    <div class="checkbox-content">
+                      <input type="checkbox" name="friday">
+                      <label>Friday</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="wrapper-type">
+                  <label class="question">Type:</label>
+                  <div class="content-type">
+                    <div class="checkbox-content">
+                      <input type="checkbox" name="meat">
+                      <label>Meat</label>
+                    </div>
+                  </div>
+                  <div class="content-type">
+                    <div class="checkbox-content">
+                      <input type="checkbox" name="fish">
+                      <label>Fish</label>
+                    </div>
+                  </div>
+                </div>
+                <h5>Your choice was:</h5>`;
+  addMorePlates.appendChild(div);
+  btns.parentNode.appendChild(btns);
+}
+
+// document.querySelector('.messageCheckbox').checked;
+// or
+// var checkedValue = document.querySelector('.messageCheckbox:checked').value;
+// or
+// var checkedValue = null;
+// var inputElements = document.getElementsByClassName('messageCheckbox');
+// for(var i=0; inputElements[i]; ++i){
+//       if(inputElements[i].checked){
+//            checkedValue = inputElements[i].value;
+//            break;
+//       }
+// }
+
+function finishOrder() {
+  var totalOrder = document.querySelector(".final-order");
+  totalOrder.parentNode.appendChild(totalOrder);
+  totalOrder.style.display = "block";
 }
