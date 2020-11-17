@@ -296,6 +296,8 @@ function addMore() {
   btns.parentNode.appendChild(btns);
 }
 
+// https://www.hongkiat.com/blog/dom-manipulation-javascript-methods/
+// https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_checkbox_order
 // document.querySelector('.messageCheckbox').checked;
 // or
 // var checkedValue = document.querySelector('.messageCheckbox:checked').value;
@@ -313,4 +315,5 @@ function finishOrder() {
   var totalOrder = document.querySelector(".final-order");
   totalOrder.parentNode.appendChild(totalOrder);
   totalOrder.style.display = "block";
+  // still need do the math and show the final order
 }
