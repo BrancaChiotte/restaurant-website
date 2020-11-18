@@ -64,20 +64,20 @@ var plates = [
       "https://cdn.pixabay.com/photo/2019/10/13/14/23/spaghetti-bolognese-4546233_960_720.jpg",
   },
   {
-    Name: "Chicken",
-    Day: "Friday",
-    Type: "Meat",
-    Price: 6,
-    img:
-      "https://cdn.pixabay.com/photo/2016/11/18/17/42/barbecue-1836053_960_720.jpg",
-  },
-  {
     Name: "Fish Soup",
     Day: "Friday",
     Type: "Fish",
     Price: 7,
     img:
       "https://cdn.pixabay.com/photo/2018/01/01/17/57/fish-soup-3054627_960_720.jpg",
+  },
+  {
+    Name: "Chicken",
+    Day: "Friday",
+    Type: "Meat",
+    Price: 6,
+    img:
+      "https://cdn.pixabay.com/photo/2016/11/18/17/42/barbecue-1836053_960_720.jpg",
   },
 ];
 
@@ -237,83 +237,120 @@ function continueLogin(argument) {
 
 // schedule items
 
-function addMore() {
-  var addMorePlates = document.querySelector(".schedule-section");
-  var btns = document.querySelector(".choose-action");
+var daysChoose = "";
 
-  var div = document.createElement("div");
-  div.setAttribute("class", "choose-items");
-  div.innerHTML = `<div class="wrapper-days">
-                  <label class="question">Day:</label>
-                  <div class="content-days">
-                    <div class="checkbox-content">
-                      <input type="checkbox" name="monday">
-                      <label>Monday</label>
-                    </div>
-                  </div>
-                  <div class="content-days">
-                    <div class="checkbox-content">
-                      <input type="checkbox" name="tuesday">
-                      <label>Tuesday</label>
-                    </div>
-                  </div>
-                  <div class="content-days">
-                    <div class="checkbox-content">
-                      <input type="checkbox" name="wednesday">
-                      <label>Wednesday</label>
-                    </div>
-                  </div>
-                  <div class="content-days">
-                    <div class="checkbox-content">
-                      <input type="checkbox" name="thursday">
-                      <label>Thursday</label>
-                    </div>
-                  </div>
-                  <div class="content-days">
-                    <div class="checkbox-content">
-                      <input type="checkbox" name="friday">
-                      <label>Friday</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="wrapper-type">
-                  <label class="question">Type:</label>
-                  <div class="content-type">
-                    <div class="checkbox-content">
-                      <input type="checkbox" name="meat">
-                      <label>Meat</label>
-                    </div>
-                  </div>
-                  <div class="content-type">
-                    <div class="checkbox-content">
-                      <input type="checkbox" name="fish">
-                      <label>Fish</label>
-                    </div>
-                  </div>
-                </div>
-                <h5>Your choice was:</h5>`;
-  addMorePlates.appendChild(div);
-  btns.parentNode.appendChild(btns);
+for (var i = 0; i < plates.length; i++) {
+  if (daysChoose !== plates[i].day) {
+    daysChoose = plates[i].day;
+
+    // select div where to insert
+    var div = document.querySelector(".choose-items");
+
+    // create div with attributes
+    var listDiv = document.createElement("div");
+    listDiv.setAttribute("class", "wrapper-option");
+
+    // create Day with attributes
+    var dayElement = document.createElement("p");
+    dayElement.setAttribute("id", "day");
+    dayElement.setAttribute("value", plates[i].day);
+    var dayTextNode = document.createTextNode(plates[i].day + ":");
+
+    // create form with attributes
+    var formElements = document.createElement("form");
+    formElements.setAttribute("class", "myForm");
+
+    // create select with attributes
+    var selectOptions = document.createElement("select");
+    selectOptions.setAttribute("id", "select" + daysChoose);
+
+    // create options with attributes + text  None
+    var optionNone = document.createElement("option");
+    optionNone.setAttribute("value", "none");
+    var nodeNone = document.createTextNode("None");
+
+    // create options with attributes + text  Fish
+    var optionFish = document.createElement("option");
+    optionFish.setAttribute("value", plates[i].name);
+    var nodeFish = document.createTextNode(plates[i].name);
+
+    optionNone.appendChild(nodeNone);
+    optionFish.appendChild(nodeFish);
+    selectOptions.appendChild(optionNone);
+    selectOptions.appendChild(optionFish);
+    formElements.appendChild(selectOptions);
+    listDiv.appendChild(formElements);
+    dayElement.appendChild(dayTextNode);
+    listDiv.insertBefore(dayElement, listDiv.childNodes[0]);
+    div.appendChild(listDiv);
+  } else {
+    var getSelectElm = document.getElementById("select" + daysChoose);
+
+    // create options Meat
+    var optionMeat = document.createElement("option");
+    optionMeat.setAttribute("value", plates[i].name);
+    var nodeMeat = document.createTextNode(plates[i].name);
+
+    optionMeat.appendChild(nodeMeat);
+    getSelectElm.appendChild(optionMeat);
+  }
 }
 
-// https://www.hongkiat.com/blog/dom-manipulation-javascript-methods/
-// https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_checkbox_order
-// document.querySelector('.messageCheckbox').checked;
-// or
-// var checkedValue = document.querySelector('.messageCheckbox:checked').value;
-// or
-// var checkedValue = null;
-// var inputElements = document.getElementsByClassName('messageCheckbox');
-// for(var i=0; inputElements[i]; ++i){
-//       if(inputElements[i].checked){
-//            checkedValue = inputElements[i].value;
-//            break;
-//       }
-// }
+
+
+function checkSelection(choosenDay) {
+  var all = document.getElementById(choosenDay);
+  var choosenFood = all.options[all.selectedIndex].text;
+  // var choosenFood = wednesday.options[wednesday.selectedIndex].value;
+  if (choosenFood == "None") {
+  } else {
+    console.log(choosenFood);
+    var div = document.querySelector(".final-order");
+
+    var finalOrder = document.createElement("p");
+    finalOrder.setAttribute("class", "order");
+    var finalOrderNode = document.createTextNode(choosenFood);
+
+    finalOrder.appendChild(finalOrderNode);
+    div.insertBefore(finalOrder, div.childNodes[1]);
+  }
+}
+
+function printSelection() {
+  var div = document.querySelector(".final-order");
+
+  var finalTitle = document.createElement("h4");
+  finalTitle.setAttribute("class", "title-order");
+  var finalTitleNode = document.createTextNode("Your final order:");
+
+  var total = document.createElement("h4");
+  total.setAttribute("class", "total");
+  var totalNode = document.createTextNode("Total price:");
+
+  total.appendChild(totalNode);
+  div.insertBefore(total, div.childNodes[0]);
+
+  finalTitle.appendChild(finalTitleNode);
+  div.insertBefore(finalTitle, div.childNodes[0]);
+
+  checkSelection("selectMonday");
+  checkSelection("selectTuesday");
+  checkSelection("selectWednesday");
+  checkSelection("selectThursday");
+  checkSelection("selectFriday");
+}
+
+function sum() {
+  for (var i = 0; i < plates.length; i++) {
+}
+
+}
 
 function finishOrder() {
   var totalOrder = document.querySelector(".final-order");
   totalOrder.parentNode.appendChild(totalOrder);
   totalOrder.style.display = "block";
+  printSelection();
+
   // still need do the math and show the final order
 }

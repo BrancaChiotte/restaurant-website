@@ -395,54 +395,45 @@ header {
   margin-bottom: 30px;
 }
 
-.wrapper-days {
+.wrapper-option {
   display: flex;
   margin: 20px 50px;
   border-radius: 4px;
-  width: 600px;
+  width: 300px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   padding: 10px;
 }
 
-.wrapper-days .question{
-  font-weight: bold;
-}
-
-.content-days{
+.wrapper-option p {
   margin: 0px 10px;
-}
-
-.wrapper-type {
-  display: flex;
-  margin: 20px 50px;
-  border-radius: 4px;
-  width: 600px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
   padding: 10px;
-}
-
-.wrapper-type .question{
   font-weight: bold;
+  font-size: 14px;
+  width: 76px;
 }
 
-.content-type{
-  margin: 0px 10px;
+.wrapper-option form {
+  margin: 3px 5px;
+  text-align: center;
+  display: flex;
+
 }
+
+select {
+/*  background: #222222;
+  color: #f5f6fa;*/
+  color: #222222;
+  border-color: #f5f6fa;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 5px;
+  padding: 3px 6px;
+  transition: all 0.4s;
+}
+
 
 .choose-action{
   text-align: justify;
   margin: 0px 130px;
-}
-
-#another-plate-btn {
-  background: #f7797d;
-  border: 0;
-  height: 40px;
-  border-radius: 3px;
-  color: white;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-      margin-right: 20px
 }
 
 #finish-order-btn{
@@ -458,14 +449,29 @@ header {
 .final-order {
   display: none;
   text-align: justify;
-  margin: 10px 130px;
+  margin: 40px 130px;
+  padding-top: 10px;
+  background: linear-gradient(to right, #86f9b4, #fbd786, #f7797d);
+  background-position: 0 0%;
+  background-size: 105% 2px;
+  background-repeat: repeat-x;
 }
 
+.title-order {
+  margin: 30px 0px;
+
+}
+
+.order {
+  margin: 20px;
+  font-style: oblique;
+  text-decoration: underline wavy #fbd786;
+}
 
 /* FOOTER */
 
 footer {
-  background: #222;
+  background: #222222;
   color: #777;
   padding: 30px;
   text-align: center;
