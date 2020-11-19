@@ -237,8 +237,8 @@ function continueLogin(argument) {
 
 // schedule items
 
+  // form with items
 var daysChoose = "";
-
 for (var i = 0; i < plates.length; i++) {
   if (daysChoose !== plates[i].day) {
     daysChoose = plates[i].day;
@@ -297,13 +297,12 @@ for (var i = 0; i < plates.length; i++) {
 }
 
 
-
+  // check want items was choosen
 function checkSelection(choosenDay) {
   var all = document.getElementById(choosenDay);
   var choosenFood = all.options[all.selectedIndex].text;
   // var choosenFood = wednesday.options[wednesday.selectedIndex].value;
-  if (choosenFood == "None") {
-  } else {
+  if (choosenFood !== "None") {
     console.log(choosenFood);
     var div = document.querySelector(".final-order");
 
@@ -313,11 +312,20 @@ function checkSelection(choosenDay) {
 
     finalOrder.appendChild(finalOrderNode);
     div.insertBefore(finalOrder, div.childNodes[1]);
+
+    var filterPlates = plates.filter(function (plate) {
+      return plate.name == choosenFood;
+    })
+    console.log(filterPlates[0]);
   }
+
 }
 
+  // print items choosen
 function printSelection() {
+
   var div = document.querySelector(".final-order");
+  div.innerHTML = "";
 
   var finalTitle = document.createElement("h4");
   finalTitle.setAttribute("class", "title-order");
@@ -340,11 +348,17 @@ function printSelection() {
   checkSelection("selectFriday");
 }
 
-function sum() {
-  for (var i = 0; i < plates.length; i++) {
-}
-
-}
+// doing math with items choosen
+// function sum() {
+//   for (var i = 0; i < plates.length; i++) {
+// }
+// function sum() {
+//   var msgTotal = plates.reduce(function(prev, cur) {
+//   return prev + cur.price;
+// }, 0);
+//   console.log(msgTotal);
+// }
+// sum();
 
 function finishOrder() {
   var totalOrder = document.querySelector(".final-order");
@@ -354,3 +368,27 @@ function finishOrder() {
 
   // still need do the math and show the final order
 }
+
+function saveStorage() {
+  var selectedVal2 = document.getElementById("selectMonday").value;
+  var selectedVal3 = document.getElementById("selectTuesday").value;
+  var selectedVal4 = document.getElementById("selectWednesday").value;
+  var selectedVal5 = document.getElementById("selectThursday").value;
+  var selectedVal6 = document.getElementById("selectFriday").value;
+  if (selectedVal2 !== "none") {
+    localStorage.setItem("Monday", selectedVal2 );
+  }
+  if (selectedVal3 !== "none") {
+    localStorage.setItem("Tuesday", selectedVal3 );
+  }
+  if (selectedVal4 !== "none") {
+    localStorage.setItem("Wednesday", selectedVal4 );
+  }
+  if (selectedVal5 !== "none") {
+    localStorage.setItem("Thursday", selectedVal5 );
+  }
+  if (selectedVal6 !== "none") {
+    localStorage.setItem("Friday", selectedVal6 );
+  }
+}
+
