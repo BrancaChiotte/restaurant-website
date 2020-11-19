@@ -372,6 +372,7 @@ header {
   font-weight: 300;
   color: #777;
   margin-bottom: 60px;
+  margin: 0px 10px 60px 10px;
 }
 .schedule-section h3 {
   text-align: center;
@@ -386,14 +387,25 @@ header {
   -webkit-text-fill-color: transparent;
 }
 
-.choose-items {
-  text-align: justify;
+.schedule-content {
+  text-align: left;
   margin: 50px 130px;
 }
 
-.choose-items h4 {
+.schedule-content h4 {
   margin-bottom: 30px;
 }
+
+.choose-items {
+  text-align: left;
+  margin: 50px 0px;
+ /* display: grid;
+  grid-template-columns: auto auto;*/
+  display: flex;
+  justify-content: left;
+  flex-wrap: wrap;
+}
+
 
 .wrapper-option {
   display: flex;
@@ -448,7 +460,7 @@ select {
 
 .final-order {
   display: none;
-  text-align: justify;
+  text-align: left;
   margin: 40px 130px;
   padding-top: 10px;
   background: linear-gradient(to right, #86f9b4, #fbd786, #f7797d);
@@ -519,14 +531,22 @@ footer {
   .dish-image {
     width: max-content;
   }
+
+  .schedule-content {
+    margin: 50px 30px;
+  }
+
+  .choose-action {
+    margin: 0px 103px;
+  }
+
   .wrapper-days {
     display: block;
     margin: 10px 0px;
     width: 135px;
   }
-  .wrapper-type {
-    display: block;
-    margin: 10px 0px;
-    width: 135px;
-  }
+
+  .final-order {
+    margin: 40px 44px;
+   }
 }
