@@ -182,30 +182,70 @@ function store() {
   } else if (!password.value.match(lowerCaseLetters)) {
     alert("please add 1 lovercase letter");
   } else {
-    localStorage.setItem("email", email.value);
-    localStorage.setItem("password", password.value);
+
+    //localStorage.setItem("email", email.value);
+    //localStorage.setItem("password", password.value);
+
+    var users = JSON.parse(localStorage.getItem('Users')) || [];
+    var userData = {email:document.getElementById("email").value , password:document.getElementById("password").value, choosenplates:[]};
+    users.push(userData);
+    localStorage.setItem('Users', JSON.stringify(users));
+
     alert("Your account has been created");
+
   }
 }
 
 //checking
 var isLogin = false;
 
-function check() {
-  var storedEmail = localStorage.getItem("email");
-  var storedPassword = localStorage.getItem("password");
+function checkLogin() {
+
+  // // users.forEach(element => console.log(element));
+  // //   users[0];
+  // //   users[1];
+
+  // var storedEmail = localStorage.getItem("email");
+  // var storedPassword = localStorage.getItem("password");
 
   var userEmail = document.getElementById("userEmail");
   var userPassword = document.getElementById("userPassword");
   var userRemember = document.getElementById("rememberMe");
 
-  if (userEmail.value == storedEmail && userPassword.value == storedPassword) {
-    alert("You are logged in.");
-    isLogin = true;
-    showInsideLogin();
-  } else {
-    alert("Error on login");
+  if ( localStorage.getItem('Users')) {
+    const allStoredUsers = JSON.parse(localStorage.getItem('Users'))
+
+    const matchedUser = allStoredUsers.filter(user => {
+      console.log(user);
+            return userEmail === user.email && userPassword === user.password;
+        })
+
+    if (matchedUser.length) {
+      alert("You are logged in.");
+      isLogin = true;
+      showInsideLogin();
+    } else {
+      alert("Error on login");
+    }
+    alert("You are not a registered user");
   }
+
+  // for (i = 0; i < users.length; i++) {
+  //   if (userEmail.value == users[i].email && userPassword.value == users[i].password) {
+  //   alert("You are logged in.");
+  //   isLogin = true;
+  //   showInsideLogin();
+  // } else {
+  //   alert("Error on login");
+  // }
+
+  // if (userEmail.value == storedEmail && userPassword.value == storedPassword) {
+  //   alert("You are logged in.");
+  //   isLogin = true;
+  //   showInsideLogin();
+  // } else {
+  //   alert("Error on login");
+  // }
 }
 
 // show btn schedule and btn logout
@@ -225,7 +265,7 @@ function showInsideLogin() {
 }
 
 function logout(argument) {
-  window.localStorage.clear();
+  // window.localStorage.clear();
   window.location.reload();
 }
 
@@ -298,6 +338,8 @@ for (var i = 0; i < plates.length; i++) {
 
 
   // check want items was choosen
+
+var sum = 0;
 function checkSelection(choosenDay) {
   var all = document.getElementById(choosenDay);
   var choosenFood = all.options[all.selectedIndex].text;
@@ -306,19 +348,18 @@ function checkSelection(choosenDay) {
     console.log(choosenFood);
     var div = document.querySelector(".final-order");
 
-    var finalOrder = document.createElement("p");
-    finalOrder.setAttribute("class", "order");
-    var finalOrderNode = document.createTextNode(choosenFood);
+    var finalOrderItems = document.createElement("p");
+    finalOrderItems.setAttribute("class", "order-item");
+    var finalOrderItemsNode = document.createTextNode(choosenFood);
 
-    finalOrder.appendChild(finalOrderNode);
-    div.insertBefore(finalOrder, div.childNodes[1]);
+    finalOrderItems.appendChild(finalOrderItemsNode);
+    div.insertBefore(finalOrderItems, div.childNodes[1]);
 
     var filterPlates = plates.filter(function (plate) {
       return plate.name == choosenFood;
     })
-    console.log(filterPlates[0]);
+    sum += filterPlates[0].price
   }
-
 }
 
   // print items choosen
@@ -346,27 +387,22 @@ function printSelection() {
   checkSelection("selectWednesday");
   checkSelection("selectThursday");
   checkSelection("selectFriday");
+
+  var finalOrderTotal = document.createElement("p");
+  finalOrderTotal.setAttribute("class", "order-total");
+  var finalOrderTotalNode = document.createTextNode(sum + "€");
+
+  finalOrderTotal.appendChild(finalOrderTotalNode);
+  div.appendChild(finalOrderTotal);
+
 }
 
-// doing math with items choosen
-// function sum() {
-//   for (var i = 0; i < plates.length; i++) {
-// }
-// function sum() {
-//   var msgTotal = plates.reduce(function(prev, cur) {
-//   return prev + cur.price;
-// }, 0);
-//   console.log(msgTotal);
-// }
-// sum();
 
 function finishOrder() {
   var totalOrder = document.querySelector(".final-order");
   totalOrder.parentNode.appendChild(totalOrder);
   totalOrder.style.display = "block";
   printSelection();
-
-  // still need do the math and show the final order
 }
 
 function saveStorage() {
@@ -391,4 +427,51 @@ function saveStorage() {
     localStorage.setItem("Friday", selectedVal6 );
   }
 }
+
+// var todosArray = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : [];
+// localStorage.setItem('todos', JSON.stringify(todosArray));
+// var storage = JSON.parse(localStorage.getItem('todos'));
+
+// form.addEventListener('submit', function (e) {
+//       e.preventDefault();
+
+//       // push onto `todosArray` the `input.value`
+//       todosArray.push(input.value);
+//       // on localStorage now use `setItem()` for the key `'todos'` the value
+//         // of the todosArray as a string with the `JSON.stringify()` method.
+//       localStorage.setItem('todos', JSON.stringify(todosArray));
+//       todoMaker(input.value);
+//       input.value = "";
+//     });
+
+// var form = document.querySelector('form');
+// var todoList = document.querySelector('ul');
+// var button = document.querySelector('button');
+// var input = document.getElementById('user-todo');
+
+
+
+
+
+// var todosArray = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : [];
+
+
+// localStorage.setItem('todos', JSON.stringify(todosArray));
+
+// var storage = JSON.parse(localStorage.getItem('todos'));
+
+
+// form.addEventListener('submit', function (e) {
+//   e.preventDefault();
+
+//   todosArray.push(input.value);
+
+//   localStorage.setItem('todos', JSON.stringify(todosArray));
+//   todoMaker(input.value);
+//   input.value = "";
+// });
+
+
+
+
 
