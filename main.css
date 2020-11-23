@@ -379,7 +379,7 @@ header {
   letter-spacing: 2px;
   text-transform: uppercase;
   font-weight: 300;
-  margin-bottom: 60px;
+  margin-top: 40px;
   background: linear-gradient(to right, #86f9b4, #fbd786, #f7797d);
   background-clip: text;
   -webkit-background-clip: text;
@@ -472,13 +472,13 @@ select {
 }
 
 .order-item {
-  margin: 20px;
+  margin: 20px 40px;
   font-style: oblique;
   text-decoration: underline wavy #fbd786;
 }
 
 .order-total {
-  margin: 20px;
+  margin: 20px 40px;
   font-style: oblique;
   text-decoration: underline wavy #fbd786;
 }

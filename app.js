@@ -130,6 +130,7 @@ function getDishes() {
 
 window.onload = function () {
   this.getDishes();
+  keepUserLogged();
 };
 
 // modal close and open
@@ -195,6 +196,10 @@ function store() {
     localStorage.setItem("Users", JSON.stringify(users));
 
     alert("Your account has been created");
+    var modalRgt = document.getElementById("register-container");
+    modalRgt.classList.remove("open-modal");
+    var modalLog = document.getElementById("login-container");
+    modalLog.classList.add("open-modal");
   }
 }
 
@@ -215,11 +220,41 @@ function checkLogin() {
       alert("You are logged in " + userEmail);
       isLogin = true;
       showInsideLogin();
+      saveCurrentUser();
+      var modalLogin = document.getElementById("login-container");
+      modalLogin.classList.remove("open-modal");
     } else {
       alert("Error on login");
     }
   } else {
     alert("Error on login");
+  }
+}
+
+function saveCurrentUser() {
+  rememberChoice = document.getElementById("rememberMe").checked;
+  if (rememberChoice == true || rememberChoice == false) {
+    var crrUser = JSON.parse(localStorage.getItem("CurrentUser")) || [];
+    var crrUserData = {
+      crremail: document.getElementById("userEmail").value,
+      crrpassword: document.getElementById("userPassword").value,
+      remenber: document.getElementById("rememberMe").checked,
+    };
+    crrUser.pop();
+    crrUser.push(crrUserData);
+    localStorage.setItem("CurrentUser", JSON.stringify(crrUser));
+  }
+}
+
+function keepUserLogged() {
+  if (localStorage.getItem("CurrentUser") !== null) {
+    var status = JSON.parse(localStorage.getItem("CurrentUser"))[0].remenber;
+    if (status === true) {
+      showInsideLogin();
+    } else {
+      localStorage.removeItem("CurrentUser");
+      window.location.reload();
+    }
   }
 }
 
@@ -239,12 +274,13 @@ function showInsideLogin() {
   scheduleSection.style.display = "block";
 }
 
-function logout(argument) {
+function logout() {
   // window.localStorage.clear();
+  localStorage.removeItem("CurrentUser");
   window.location.reload();
 }
 
-function continueLogin(argument) {
+function continueLogin() {
   isLogin = true;
   var modalLogout = document.getElementById("logout-container");
   modalLogout.classList.remove("open-modal");
@@ -341,6 +377,11 @@ function printSelection() {
   var div = document.querySelector(".final-order");
   div.innerHTML = "";
 
+  var thankYou = document.createElement("h3");
+  var thankYouNode = document.createTextNode(
+    "Thank You for choosing White & Yellow"
+  );
+
   var finalTitle = document.createElement("h4");
   finalTitle.setAttribute("class", "title-order");
   var finalTitleNode = document.createTextNode("Your final order:");
@@ -367,6 +408,9 @@ function printSelection() {
 
   finalOrderTotal.appendChild(finalOrderTotalNode);
   div.appendChild(finalOrderTotal);
+
+  thankYou.appendChild(thankYouNode);
+  div.appendChild(thankYou);
 }
 
 function finishOrder() {
@@ -377,24 +421,51 @@ function finishOrder() {
 }
 
 function saveStorage() {
-  var selectedVal2 = document.getElementById("selectMonday").value;
-  var selectedVal3 = document.getElementById("selectTuesday").value;
-  var selectedVal4 = document.getElementById("selectWednesday").value;
-  var selectedVal5 = document.getElementById("selectThursday").value;
-  var selectedVal6 = document.getElementById("selectFriday").value;
-  if (selectedVal2 !== "none") {
-    localStorage.setItem("Monday", selectedVal2);
+  // know which user is choosing
+  var crrUser = JSON.parse(localStorage.getItem("CurrentUser"));
+  var allUsers = JSON.parse(localStorage.getItem("Users"));
+  var matchedUser = allUsers.filter((user) => {
+    return (
+      crrUser[0].crremail === user.email &&
+      crrUser[0].crrpassword === user.password
+    );
+  });
+  if (matchedUser.length !== 0) {
+    var selectedVal2 = document.getElementById("selectMonday").value;
+    var selectedVal3 = document.getElementById("selectTuesday").value;
+    var selectedVal4 = document.getElementById("selectWednesday").value;
+    var selectedVal5 = document.getElementById("selectThursday").value;
+    var selectedVal6 = document.getElementById("selectFriday").value;
+    if (selectedVal2 !== "none") {
+      matchedUser[0].choosenplates.push({
+        Monday: selectedVal2,
+        OrderDate: new Date().toLocaleString(),
+      });
+    }
+    if (selectedVal3 !== "none") {
+      matchedUser[0].choosenplates.push({
+        Tuesday: selectedVal3,
+        OrderDate: new Date().toLocaleString(),
+      });
+    }
+    if (selectedVal4 !== "none") {
+      matchedUser[0].choosenplates.push({
+        Wednesday: selectedVal4,
+        OrderDate: new Date().toLocaleString(),
+      });
+    }
+    if (selectedVal5 !== "none") {
+      matchedUser[0].choosenplates.push({
+        Thursday: selectedVal5,
+        OrderDate: new Date().toLocaleString(),
+      });
+    }
+    if (selectedVal6 !== "none") {
+      matchedUser[0].choosenplates.push({
+        Friday: selectedVal6,
+        OrderDate: new Date().toLocaleString(),
+      });
+    }
   }
-  if (selectedVal3 !== "none") {
-    localStorage.setItem("Tuesday", selectedVal3);
-  }
-  if (selectedVal4 !== "none") {
-    localStorage.setItem("Wednesday", selectedVal4);
-  }
-  if (selectedVal5 !== "none") {
-    localStorage.setItem("Thursday", selectedVal5);
-  }
-  if (selectedVal6 !== "none") {
-    localStorage.setItem("Friday", selectedVal6);
-  }
+  localStorage.setItem("Users", JSON.stringify(allUsers));
 }
