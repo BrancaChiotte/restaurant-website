@@ -182,17 +182,19 @@ function store() {
   } else if (!password.value.match(lowerCaseLetters)) {
     alert("please add 1 lovercase letter");
   } else {
-
     //localStorage.setItem("email", email.value);
     //localStorage.setItem("password", password.value);
 
-    var users = JSON.parse(localStorage.getItem('Users')) || [];
-    var userData = {email:document.getElementById("email").value , password:document.getElementById("password").value, choosenplates:[]};
+    var users = JSON.parse(localStorage.getItem("Users")) || [];
+    var userData = {
+      email: document.getElementById("email").value,
+      password: document.getElementById("password").value,
+      choosenplates: [],
+    };
     users.push(userData);
-    localStorage.setItem('Users', JSON.stringify(users));
+    localStorage.setItem("Users", JSON.stringify(users));
 
     alert("Your account has been created");
-
   }
 }
 
@@ -200,52 +202,25 @@ function store() {
 var isLogin = false;
 
 function checkLogin() {
-
-  // // users.forEach(element => console.log(element));
-  // //   users[0];
-  // //   users[1];
-
-  // var storedEmail = localStorage.getItem("email");
-  // var storedPassword = localStorage.getItem("password");
-
-  var userEmail = document.getElementById("userEmail");
-  var userPassword = document.getElementById("userPassword");
+  var userEmail = document.getElementById("userEmail").value;
+  var userPassword = document.getElementById("userPassword").value;
   var userRemember = document.getElementById("rememberMe");
 
-  if ( localStorage.getItem('Users')) {
-    const allStoredUsers = JSON.parse(localStorage.getItem('Users'))
-
-    const matchedUser = allStoredUsers.filter(user => {
-      console.log(user);
-            return userEmail === user.email && userPassword === user.password;
-        })
-
+  if (localStorage.getItem("Users")) {
+    var allUsers = JSON.parse(localStorage.getItem("Users"));
+    var matchedUser = allUsers.filter((user) => {
+      return userEmail === user.email && userPassword === user.password;
+    });
     if (matchedUser.length) {
-      alert("You are logged in.");
+      alert("You are logged in " + userEmail);
       isLogin = true;
       showInsideLogin();
     } else {
       alert("Error on login");
     }
-    alert("You are not a registered user");
+  } else {
+    alert("Error on login");
   }
-
-  // for (i = 0; i < users.length; i++) {
-  //   if (userEmail.value == users[i].email && userPassword.value == users[i].password) {
-  //   alert("You are logged in.");
-  //   isLogin = true;
-  //   showInsideLogin();
-  // } else {
-  //   alert("Error on login");
-  // }
-
-  // if (userEmail.value == storedEmail && userPassword.value == storedPassword) {
-  //   alert("You are logged in.");
-  //   isLogin = true;
-  //   showInsideLogin();
-  // } else {
-  //   alert("Error on login");
-  // }
 }
 
 // show btn schedule and btn logout
@@ -277,7 +252,7 @@ function continueLogin(argument) {
 
 // schedule items
 
-  // form with items
+// form with items
 var daysChoose = "";
 for (var i = 0; i < plates.length; i++) {
   if (daysChoose !== plates[i].day) {
@@ -336,8 +311,7 @@ for (var i = 0; i < plates.length; i++) {
   }
 }
 
-
-  // check want items was choosen
+// check want items was choosen
 
 var sum = 0;
 function checkSelection(choosenDay) {
@@ -357,14 +331,13 @@ function checkSelection(choosenDay) {
 
     var filterPlates = plates.filter(function (plate) {
       return plate.name == choosenFood;
-    })
-    sum += filterPlates[0].price
+    });
+    sum += filterPlates[0].price;
   }
 }
 
-  // print items choosen
+// print items choosen
 function printSelection() {
-
   var div = document.querySelector(".final-order");
   div.innerHTML = "";
 
@@ -394,9 +367,7 @@ function printSelection() {
 
   finalOrderTotal.appendChild(finalOrderTotalNode);
   div.appendChild(finalOrderTotal);
-
 }
-
 
 function finishOrder() {
   var totalOrder = document.querySelector(".final-order");
@@ -412,66 +383,18 @@ function saveStorage() {
   var selectedVal5 = document.getElementById("selectThursday").value;
   var selectedVal6 = document.getElementById("selectFriday").value;
   if (selectedVal2 !== "none") {
-    localStorage.setItem("Monday", selectedVal2 );
+    localStorage.setItem("Monday", selectedVal2);
   }
   if (selectedVal3 !== "none") {
-    localStorage.setItem("Tuesday", selectedVal3 );
+    localStorage.setItem("Tuesday", selectedVal3);
   }
   if (selectedVal4 !== "none") {
-    localStorage.setItem("Wednesday", selectedVal4 );
+    localStorage.setItem("Wednesday", selectedVal4);
   }
   if (selectedVal5 !== "none") {
-    localStorage.setItem("Thursday", selectedVal5 );
+    localStorage.setItem("Thursday", selectedVal5);
   }
   if (selectedVal6 !== "none") {
-    localStorage.setItem("Friday", selectedVal6 );
+    localStorage.setItem("Friday", selectedVal6);
   }
 }
-
-// var todosArray = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : [];
-// localStorage.setItem('todos', JSON.stringify(todosArray));
-// var storage = JSON.parse(localStorage.getItem('todos'));
-
-// form.addEventListener('submit', function (e) {
-//       e.preventDefault();
-
-//       // push onto `todosArray` the `input.value`
-//       todosArray.push(input.value);
-//       // on localStorage now use `setItem()` for the key `'todos'` the value
-//         // of the todosArray as a string with the `JSON.stringify()` method.
-//       localStorage.setItem('todos', JSON.stringify(todosArray));
-//       todoMaker(input.value);
-//       input.value = "";
-//     });
-
-// var form = document.querySelector('form');
-// var todoList = document.querySelector('ul');
-// var button = document.querySelector('button');
-// var input = document.getElementById('user-todo');
-
-
-
-
-
-// var todosArray = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : [];
-
-
-// localStorage.setItem('todos', JSON.stringify(todosArray));
-
-// var storage = JSON.parse(localStorage.getItem('todos'));
-
-
-// form.addEventListener('submit', function (e) {
-//   e.preventDefault();
-
-//   todosArray.push(input.value);
-
-//   localStorage.setItem('todos', JSON.stringify(todosArray));
-//   todoMaker(input.value);
-//   input.value = "";
-// });
-
-
-
-
-
