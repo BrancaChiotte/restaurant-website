@@ -112,6 +112,7 @@ header {
 .about-content p {
   text-align: justify;
   margin: 0px 76px;
+  line-height: 1.5;
 }
 
 /* MENU */
@@ -184,7 +185,7 @@ header {
 .dish-day {
   margin-right: 20px;
   margin-top: 14px;
-  color: #999;
+  color: rgb(153,153,153);
   font-size: 14px;
   text-transform: capitalize;
 }
@@ -192,7 +193,7 @@ header {
 .dish-type {
   margin-right: 20px;
   margin-top: 14px;
-  color: #999;
+  color: rgb(153,153,153);
   font-size: 14px;
   text-transform: capitalize;
 }
@@ -200,7 +201,7 @@ header {
 .dish-price {
   margin-right: 14px;
   margin-top: 14px;
-  color: #999;
+  color: rgb(153,153,153);
   font-size: 14px;
   text-transform: capitalize;
 }
@@ -298,7 +299,7 @@ header {
 }
 
 .helper-text {
-  color: #999;
+  color: rgb(153,153,153);
   font-size: 12px;
   font-style: italic;
 }
